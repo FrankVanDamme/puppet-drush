@@ -16,6 +16,8 @@ define drush::extension() {
     creates => "/usr/share/drush/commands/${extension_name}",
     path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
     notify  => Class['drush::cacheclear'],
+    umask   => '0022',
+    user    => $drush::user,
   }
 
 }

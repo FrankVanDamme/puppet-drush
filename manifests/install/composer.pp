@@ -22,6 +22,8 @@ module and should not be directly included in the manifest.")
 
   file { $install_path:
     ensure => directory,
+    mode   => '0755',
+    owner  => "$drush::user",
   }
 
   $base_path = dirname($install_path)
@@ -33,8 +35,8 @@ module and should not be directly included in the manifest.")
     environment => ["COMPOSER_HOME=${composer_home}"],
     require     => File[$install_path],
     onlyif      => "test ! -f composer.json || test \"$(grep drush/drush composer.json | cut -d\\\" -f 4)\" != '${real_version}'",
-    path        => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ]
+    path        => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+    umask       => '0022',
+    user        => $drush::user,
   }
-
 }
-

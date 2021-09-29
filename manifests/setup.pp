@@ -56,6 +56,8 @@ module and should not be directly included in the manifest.")
   # Base install path of any drush installations.
   file { $drush::install_base_path:
     ensure => directory,
+    mode   => '0755',
+    owner  => "$drush::user",
   }
 
   # Drush directories.

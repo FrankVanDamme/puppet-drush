@@ -51,6 +51,9 @@
 #   Path to a ini file with php overrides. If provided, it will set DRUSH_INI
 #   environment variable system-wide. See `docs-ini-files` for details.
 #
+# [*user*]
+#   execute composer as user other than root
+#
 class drush(
   $versions              = ['10',],
   $default_version       = '10',
@@ -65,6 +68,7 @@ class drush(
   $php_path              = undef,
   $php_ini_path          = undef,
   $drush_ini_path        = undef,
+  $user                  = undef,
 ) inherits drush::params {
 
   # Identify legacy and/or modern drush installation.

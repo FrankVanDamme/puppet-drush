@@ -16,6 +16,8 @@ module and should not be directly included in the manifest.")
     command     => "${drush::drush_exe_default} cc drush",
     require     => File[$drush::drush_exe_default],
     refreshonly => true,
+    user        => $drush::user,
+    umask       => '0022',
   }
 
 }

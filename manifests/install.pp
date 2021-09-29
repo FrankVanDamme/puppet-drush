@@ -59,7 +59,6 @@ define drush::install(
     path        => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
     require     => File[$drush_exe],
     refreshonly => true,
+    umask   => '0022',
   }
-
 }
-
