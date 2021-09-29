@@ -30,9 +30,15 @@ module and should not be directly included in the manifest.")
   $composer_home = "${base_path}/.composer"
   $prefer = "--prefer-${install_type}"
   $cmd = "${drush::composer_path} require drush/drush:${real_version} ${prefer}"
+
+  if ( $drush::http_proxy == undef ){
+      $environment = ["COMPOSER_HOME=${composer_home}"]
+  } else {
+      $environment = ["COMPOSER_HOME=${composer_home}", "http_proxy=$drush::http_proxy"]
+  }
   exec { $cmd:
     cwd         => $install_path,
-    environment => ["COMPOSER_HOME=${composer_home}"],
+    environment => $environment,
     require     => File[$install_path],
     onlyif      => "test ! -f composer.json || test \"$(grep drush/drush composer.json | cut -d\\\" -f 4)\" != '${real_version}'",
     path        => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],

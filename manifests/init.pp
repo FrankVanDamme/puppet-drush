@@ -54,6 +54,10 @@
 # [*user*]
 #   execute composer as user other than root
 #
+# [*http_proxy*]
+#   http proxy for composer/curl to download files, as you would put them in 
+#   http_proxy environment variable
+#
 class drush(
   $versions              = ['10',],
   $default_version       = '10',
@@ -69,6 +73,7 @@ class drush(
   $php_ini_path          = undef,
   $drush_ini_path        = undef,
   $user                  = undef,
+  $http_proxy            = undef,
 ) inherits drush::params {
 
   # Identify legacy and/or modern drush installation.
