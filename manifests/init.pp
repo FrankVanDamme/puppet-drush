@@ -75,7 +75,6 @@ class drush(
   Variant[String,Undef] $user                    = undef,
   Variant[String,Undef] $http_proxy              = undef,
 ) inherits drush::params {
-
   # Identify legacy and/or modern drush installation.
   $legacy_versions = $drush::versions.filter |$version| {
     versioncmp($version, '9') < 0
@@ -93,10 +92,8 @@ class drush(
   $install_base_path = '/opt/drush'
   $drush_exe_default = '/usr/local/bin/drush'
 
-  class{'drush::setup': }
-  -> class{'drush::config': }
-  ~> class{'drush::cacheclear': }
+  class { 'drush::setup': }
+  -> class { 'drush::config': }
+  ~> class { 'drush::cacheclear': }
   -> Class['drush']
-
 }
-
